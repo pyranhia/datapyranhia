@@ -17,6 +17,6 @@
 #' }
 #'
 #' @source
-#' Dataset Titanic original provenant du package R \pkg{titanic} :
+#' Dataset Titanic original sous licence CC0 (domaine public) provenant du package R \pkg{titanic} :
 #' \url{https://cran.r-project.org/package=titanic}
 "titanic"

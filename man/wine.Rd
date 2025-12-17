@@ -27,7 +27,8 @@ Cortez, P., Cerdeira, A., Almeida, F., Matos, T., & Reis, J. (2009).
 Decision Support Systems, 47(4), 547–553.
 
 Données disponibles sur le UCI Machine Learning Repository :
-\url{https://archive.ics.uci.edu/dataset/186/wine+quality}
+\url{https://archive.ics.uci.edu/dataset/186/wine+quality}.
+Licence Creative Commons Attribution 4.0 International (CC BY 4.0).
 }
 \usage{
 wine
