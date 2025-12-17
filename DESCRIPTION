@@ -1,11 +1,10 @@
 Package: datapyranhia
-Title: What the Package Does (One Line, Title Case)
+Title: Jeu de données pour les formations Pyranhia
 Version: 0.0.0.9000
 Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
+    person("Thelma", "Panaïotis", "thelmapana@proton.me", role = c("aut", "cre"))
+Description: Ce package fournit des jeux de données utilisés dans les formations Pyranhia, facilitant l'apprentissage et la manipulation de données en R.
+License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3
