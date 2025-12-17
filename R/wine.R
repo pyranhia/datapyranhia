@@ -5,7 +5,7 @@
 #' régression et de classification visant à relier les propriétés chimiques du
 #' vin à la qualité perçue.
 #'
-#' @format Un tibble avec XXX lignes et 12 variables :
+#' @format Un tibble avec 1143 lignes et 12 variables :
 #' \describe{
 #'   \item{fixed_acidity}{dbl Acidité fixe}
 #'   \item{volatile_acidity}{dbl Acidité volatile}
