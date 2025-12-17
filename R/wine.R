@@ -1,0 +1,31 @@
+#' Données de qualité du vin
+#'
+#' Ce jeu de données contient des mesures physico-chimiques de vins ainsi qu’un
+#' score de qualité sensorielle. Il est couramment utilisé pour des analyses de
+#' régression et de classification visant à relier les propriétés chimiques du
+#' vin à la qualité perçue.
+#'
+#' @format Un tibble avec XXX lignes et 12 variables :
+#' \describe{
+#'   \item{fixed_acidity}{dbl Acidité fixe}
+#'   \item{volatile_acidity}{dbl Acidité volatile}
+#'   \item{citric_acid}{dbl Acide citrique}
+#'   \item{residual_sugar}{dbl Sucre résiduel}
+#'   \item{chlorides}{dbl Chlorures}
+#'   \item{free_sulfur_dioxide}{dbl Dioxyde de soufre libre}
+#'   \item{total_sulfur_dioxide}{dbl Dioxyde de soufre total}
+#'   \item{density}{dbl Densité}
+#'   \item{pH}{dbl Niveau de pH}
+#'   \item{sulphates}{dbl Sulfates}
+#'   \item{alcohol}{dbl Teneur en alcool}
+#'   \item{quality}{int Score de qualité sensorielle compris entre 0 et 10}
+#' }
+#'
+#' @source
+#' Cortez, P., Cerdeira, A., Almeida, F., Matos, T., & Reis, J. (2009).
+#' *Modeling wine preferences by data mining from physicochemical properties*.
+#' Decision Support Systems, 47(4), 547–553.
+#'
+#' Données disponibles sur le UCI Machine Learning Repository :
+#' \url{https://archive.ics.uci.edu/dataset/186/wine+quality}
+"wine"
