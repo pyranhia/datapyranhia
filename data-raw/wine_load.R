@@ -11,6 +11,5 @@ wine <- clean_names(wine_raw)
 # Remove id column
 wine <- wine |> select(-id)
 
-# shrimp_load.R
-
+# Use data
 usethis::use_data(wine, overwrite = TRUE)
