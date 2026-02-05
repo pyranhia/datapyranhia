@@ -7,7 +7,8 @@ colnames <- c(colnames, "income")
 
 # Read both tables
 df1 <- read_csv(here::here("data-raw", "adult.data"), col_names = colnames, show_col_types = FALSE, na = "?")
-df2 <- read_csv(here::here("data-raw", "adult.test"), col_names = colnames, show_col_types = FALSE, na = "?", skip = 1)
+df2 <- read_csv(here::here("data-raw", "adult.test"), col_names = colnames, show_col_types = FALSE, na = "?", skip = 1) |>
+  mutate(income = str_remove_all(income, "\\."))
 
 # Assemble tables
 adult <- bind_rows(df1, df2)
