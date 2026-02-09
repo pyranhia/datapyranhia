@@ -12,8 +12,8 @@ data <- tibble(
 ) |>
   mutate(
     score = 50 +
-      3 * heures +
-      2 * experience +
+      2 * heures +
+      10 * experience +
       0.5 * heures * experience +
       0.3 * heures^2 -
       0.2 * experience^2 +
