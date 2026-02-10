@@ -1,6 +1,9 @@
 # Déclaration des variables globales pour R CMD check
 utils::globalVariables("mnist")
 
+#' @importFrom reticulate iter_next as_iterator
+NULL
+
 #' Préparer MNIST pour Keras/TensorFlow
 #'
 #' Convertit le dataset MNIST en datasets TensorFlow compatibles avec
@@ -203,4 +206,132 @@ make_transform_fn <- function(target_size, to_rgb) {
 
     list(x, y)
   }
+}
+
+
+
+#' Extraire images et/ou labels d'un tf_dataset
+#'
+#' Convertit un tf_dataset en arrays R pour inspection ou évaluation.
+#' Utile pour récupérer les labels du test set ou visualiser des images.
+#'
+#' @param dataset Un tf_dataset (provenant de mnist_to_dataset())
+#' @param what Chaîne de caractères indiquant ce qu'il faut extraire :
+#'   "both" (défaut), "x" (images seulement), ou "y" (labels seulement)
+#' @param labels_format Format des labels : "onehot" (défaut) ou "integer" (0-9)
+#' @param max_samples Nombre maximum d'échantillons à extraire.
+#'   NULL pour tout extraire (défaut NULL).
+#'
+#' @return Selon le paramètre \code{what} :
+#' \describe{
+#'   \item{both}{Liste avec \code{x} (images) et \code{y} (labels)}
+#'   \item{x}{Array des images uniquement}
+#'   \item{y}{Array ou vecteur des labels uniquement}
+#' }
+#'
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' library(keras3)
+#'
+#' # Créer les datasets
+#' datasets <- mnist_to_dataset(
+#'   image_size = c(96, 96),
+#'   to_rgb = TRUE,
+#'   subsample = list(train = 1000, test = 200)
+#' )
+#'
+#' # Extraire images et labels (défaut : one-hot)
+#' test_data <- extract_dataset(datasets$test)
+#' dim(test_data$x)  # 200 96 96 3
+#' dim(test_data$y)  # 200 10
+#'
+#' # Extraire seulement les images
+#' x_test <- extract_dataset(datasets$test, what = "x")
+#'
+#' # Extraire seulement les labels en format entier (0-9)
+#' y_test <- extract_dataset(datasets$test, what = "y", labels_format = "integer")
+#'
+#' # Extraire un échantillon pour inspection rapide
+#' sample <- extract_dataset(datasets$train, max_samples = 100)
+#'
+#' # Visualiser une image
+#' img <- sample$x[1, , , 1]
+#' label <- which.max(sample$y[1, ]) - 1
+#' image(t(img[96:1, ]), col = gray.colors(255),
+#'       axes = FALSE, main = paste("Chiffre:", label))
+#' }
+extract_dataset <- function(dataset,
+                            what = c("both", "x", "y"),
+                            labels_format = c("onehot", "integer"),
+                            max_samples = NULL) {
+
+  what <- match.arg(what)
+  labels_format <- match.arg(labels_format)
+
+  all_x <- list()
+  all_y <- list()
+  n_samples <- 0
+
+  iter <- reticulate::as_iterator(dataset)
+
+  repeat {
+    batch <- iter_next(iter, completed = NULL)
+    if (is.null(batch)) break
+
+    # Convertir en arrays R selon ce qui est demandé
+    if (what %in% c("both", "x")) {
+      batch_x <- as.array(batch[[1]])
+      all_x[[length(all_x) + 1]] <- batch_x
+    }
+
+    if (what %in% c("both", "y")) {
+      batch_y <- as.array(batch[[2]])
+      all_y[[length(all_y) + 1]] <- batch_y
+    }
+
+    n_samples <- n_samples + dim(batch[[1]])[1]
+
+    # Arrêter si on a atteint max_samples
+    if (!is.null(max_samples) && n_samples >= max_samples) break
+  }
+
+  # Combiner les batches
+  result <- list()
+
+  if (what %in% c("both", "x")) {
+    x <- do.call(abind::abind, c(all_x, list(along = 1)))
+
+    # Tronquer si necessaire
+    if (!is.null(max_samples) && dim(x)[1] > max_samples) {
+      x <- x[1:max_samples, , , , drop = FALSE]
+    }
+
+    if (what == "x") {
+      return(x)
+    }
+    result$x <- x
+  }
+
+  if (what %in% c("both", "y")) {
+    y <- do.call(rbind, all_y)
+
+    # Tronquer si necessaire
+    if (!is.null(max_samples) && nrow(y) > max_samples) {
+      y <- y[1:max_samples, , drop = FALSE]
+    }
+
+    # Convertir en entier si demande
+    if (labels_format == "integer") {
+      y <- apply(y, 1, which.max) - 1
+    }
+
+    if (what == "y") {
+      return(y)
+    }
+    result$y <- y
+  }
+
+  result
 }
