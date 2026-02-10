@@ -9,6 +9,7 @@ mnist_to_dataset(
   image_size = c(28, 28),
   to_rgb = FALSE,
   batch_size = 64,
+  subsample = NULL,
   seed = 123
 )
 }
@@ -23,6 +24,10 @@ Par défaut c(28, 28). Utilisez c(48, 48) pour MobileNetV2.}
 (3 canaux). Par défaut FALSE.}
 
 \item{batch_size}{Nombre d'exemples par batch (par défaut 64)}
+
+\item{subsample}{Liste optionnelle avec éléments \code{train} et \code{test}
+pour sous-échantillonner les données. Par exemple :
+\code{list(train = 10000, test = 2000)}. Par défaut NULL (pas de sous-échantillonnage).}
 
 \item{seed}{Graine aléatoire pour la reproductibilité (par défaut 123)}
 }
@@ -44,6 +49,7 @@ Cette fonction effectue automatiquement :
 \item La normalisation des pixels (division par 255)
 \item L'ajout de la dimension canal (grayscale ou RGB)
 \item Le redimensionnement des images si nécessaire
+\item Le sous-échantillonnage si nécessaire
 \item La conversion en RGB si demandé
 \item L'encodage one-hot des labels
 \item La création du split train/validation
@@ -71,11 +77,19 @@ library(keras3)
 # Utilisation basique (28×28, grayscale)
 datasets <- mnist_to_dataset()
 
-# Pour le transfert learning avec MobileNetV2 (48×48, RGB)
+# Utilisation avec MobileNetV2 (48×48, RGB)
 datasets <- mnist_to_dataset(
   image_size = c(48, 48),
   to_rgb = TRUE,
   batch_size = 64
+)
+
+# Version sous-échantillonnée pour entraînement rapide
+datasets <- mnist_to_dataset(
+  image_size = c(48, 48),
+  to_rgb = TRUE,
+  subsample = list(train = 10000, test = 2000),
+  seed = 123
 )
 
 # Entraîner un modèle

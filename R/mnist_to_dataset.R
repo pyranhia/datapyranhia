@@ -13,6 +13,9 @@ utils::globalVariables("mnist")
 #' @param to_rgb Booléen. Si TRUE, convertit les images grayscale en RGB
 #'   (3 canaux). Par défaut FALSE.
 #' @param batch_size Nombre d'exemples par batch (par défaut 64)
+#' @param subsample Liste optionnelle avec éléments \code{train} et \code{test}
+#'   pour sous-échantillonner les données. Par exemple :
+#'   \code{list(train = 10000, test = 2000)}. Par défaut NULL (pas de sous-échantillonnage).
 #' @param seed Graine aléatoire pour la reproductibilité (par défaut 123)
 #'
 #' @return Une liste avec trois éléments :
@@ -28,6 +31,7 @@ utils::globalVariables("mnist")
 #'   \item La normalisation des pixels (division par 255)
 #'   \item L'ajout de la dimension canal (grayscale ou RGB)
 #'   \item Le redimensionnement des images si nécessaire
+#'   \item Le sous-échantillonnage si nécessaire
 #'   \item La conversion en RGB si demandé
 #'   \item L'encodage one-hot des labels
 #'   \item La création du split train/validation
@@ -57,11 +61,19 @@ utils::globalVariables("mnist")
 #' # Utilisation basique (28×28, grayscale)
 #' datasets <- mnist_to_dataset()
 #'
-#' # Pour le transfert learning avec MobileNetV2 (48×48, RGB)
+#' # Utilisation avec MobileNetV2 (48×48, RGB)
 #' datasets <- mnist_to_dataset(
 #'   image_size = c(48, 48),
 #'   to_rgb = TRUE,
 #'   batch_size = 64
+#' )
+#'
+#' # Version sous-échantillonnée pour entraînement rapide
+#' datasets <- mnist_to_dataset(
+#'   image_size = c(48, 48),
+#'   to_rgb = TRUE,
+#'   subsample = list(train = 10000, test = 2000),
+#'   seed = 123
 #' )
 #'
 #' # Entraîner un modèle
@@ -75,6 +87,7 @@ mnist_to_dataset <- function(validation_split = 0.2,
                              image_size = c(28, 28),
                              to_rgb = FALSE,
                              batch_size = 64,
+                             subsample = NULL,
                              seed = 123) {
 
   # Vérifier que keras3 est disponible
@@ -100,6 +113,27 @@ mnist_to_dataset <- function(validation_split = 0.2,
   y_train <- keras3::to_categorical(mnist$train$y, 10)
   x_test <- mnist$test$x / 255
   y_test <- keras3::to_categorical(mnist$test$y, 10)
+
+  # Sous-echantillonner si demande
+  if (!is.null(subsample)) {
+    if (!is.list(subsample) || !all(c("train", "test") %in% names(subsample))) {
+      stop("subsample doit etre une liste avec les elements 'train' et 'test'")
+    }
+
+    # Sous-echantillonner train
+    if (subsample$train < nrow(x_train)) {
+      train_sample_idx <- sample(1:nrow(x_train), subsample$train)
+      x_train <- x_train[train_sample_idx, , ]
+      y_train <- y_train[train_sample_idx, ]
+    }
+
+    # Sous-echantillonner test
+    if (subsample$test < nrow(x_test)) {
+      test_sample_idx <- sample(1:nrow(x_test), subsample$test)
+      x_test <- x_test[test_sample_idx, , ]
+      y_test <- y_test[test_sample_idx, ]
+    }
+  }
 
   # Ajouter dimension canal (grayscale) : 28x28 -> 28x28x1
   x_train <- keras3::array_reshape(x_train, c(dim(x_train), 1))
