@@ -15,4 +15,5 @@ LazyData: true
 LazyDataCompression: xz
 Suggests: 
     keras3,
+    tensorflow,
     tfdatasets

@@ -4,11 +4,23 @@
 \alias{mnist_to_dataset}
 \title{Préparer MNIST pour Keras/TensorFlow}
 \usage{
-mnist_to_dataset(validation_split = 0.2, batch_size = 64, seed = 123)
+mnist_to_dataset(
+  validation_split = 0.2,
+  image_size = c(28, 28),
+  to_rgb = FALSE,
+  batch_size = 64,
+  seed = 123
+)
 }
 \arguments{
 \item{validation_split}{Proportion des données d'entraînement à utiliser
 pour la validation (par défaut 0.2)}
+
+\item{image_size}{Vecteur de taille 2 : (hauteur, largeur) en pixels.
+Par défaut c(28, 28). Utilisez c(48, 48) pour MobileNetV2.}
+
+\item{to_rgb}{Booléen. Si TRUE, convertit les images grayscale en RGB
+(3 canaux). Par défaut FALSE.}
 
 \item{batch_size}{Nombre d'exemples par batch (par défaut 64)}
 
@@ -24,13 +36,15 @@ Une liste avec trois éléments :
 }
 \description{
 Convertit le dataset MNIST en datasets TensorFlow compatibles avec
-validation split et batching.
+validation split, redimensionnement et batching.
 }
 \details{
 Cette fonction effectue automatiquement :
 \itemize{
 \item La normalisation des pixels (division par 255)
-\item L'ajout de la dimension canal (grayscale)
+\item L'ajout de la dimension canal (grayscale ou RGB)
+\item Le redimensionnement des images si nécessaire
+\item La conversion en RGB si demandé
 \item L'encodage one-hot des labels
 \item La création du split train/validation
 \item Le batching et shuffling
@@ -54,17 +68,18 @@ batch_y <- as.array(batch[[2]])  # Labels
 \dontrun{
 library(keras3)
 
-# Utilisation basique
+# Utilisation basique (28×28, grayscale)
 datasets <- mnist_to_dataset()
 
-# Personnaliser les paramètres
+# Pour le transfert learning avec MobileNetV2 (48×48, RGB)
 datasets <- mnist_to_dataset(
-  validation_split = 0.2,
+  image_size = c(48, 48),
+  to_rgb = TRUE,
   batch_size = 64
 )
 
 # Entraîner un modèle
-model |>  fit(
+model |> fit(
   datasets$train,
   validation_data = datasets$validation,
   epochs = 10

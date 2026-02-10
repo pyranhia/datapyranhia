@@ -4,10 +4,14 @@ utils::globalVariables("mnist")
 #' Préparer MNIST pour Keras/TensorFlow
 #'
 #' Convertit le dataset MNIST en datasets TensorFlow compatibles avec
-#' validation split et batching.
+#' validation split, redimensionnement et batching.
 #'
 #' @param validation_split Proportion des données d'entraînement à utiliser
 #'   pour la validation (par défaut 0.2)
+#' @param image_size Vecteur de taille 2 : (hauteur, largeur) en pixels.
+#'   Par défaut c(28, 28). Utilisez c(48, 48) pour MobileNetV2.
+#' @param to_rgb Booléen. Si TRUE, convertit les images grayscale en RGB
+#'   (3 canaux). Par défaut FALSE.
 #' @param batch_size Nombre d'exemples par batch (par défaut 64)
 #' @param seed Graine aléatoire pour la reproductibilité (par défaut 123)
 #'
@@ -22,7 +26,9 @@ utils::globalVariables("mnist")
 #' Cette fonction effectue automatiquement :
 #' \itemize{
 #'   \item La normalisation des pixels (division par 255)
-#'   \item L'ajout de la dimension canal (grayscale)
+#'   \item L'ajout de la dimension canal (grayscale ou RGB)
+#'   \item Le redimensionnement des images si nécessaire
+#'   \item La conversion en RGB si demandé
 #'   \item L'encodage one-hot des labels
 #'   \item La création du split train/validation
 #'   \item Le batching et shuffling
@@ -48,23 +54,26 @@ utils::globalVariables("mnist")
 #' \dontrun{
 #' library(keras3)
 #'
-#' # Utilisation basique
+#' # Utilisation basique (28×28, grayscale)
 #' datasets <- mnist_to_dataset()
 #'
-#' # Personnaliser les paramètres
+#' # Pour le transfert learning avec MobileNetV2 (48×48, RGB)
 #' datasets <- mnist_to_dataset(
-#'   validation_split = 0.2,
+#'   image_size = c(48, 48),
+#'   to_rgb = TRUE,
 #'   batch_size = 64
 #' )
 #'
 #' # Entraîner un modèle
-#' model |>  fit(
+#' model |> fit(
 #'   datasets$train,
 #'   validation_data = datasets$validation,
 #'   epochs = 10
 #' )
 #' }
 mnist_to_dataset <- function(validation_split = 0.2,
+                             image_size = c(28, 28),
+                             to_rgb = FALSE,
                              batch_size = 64,
                              seed = 123) {
 
@@ -76,6 +85,12 @@ mnist_to_dataset <- function(validation_split = 0.2,
   # Vérifier que tfdatasets est disponible
   if (!requireNamespace("tfdatasets", quietly = TRUE)) {
     stop("Le package 'tfdatasets' est requis. Installez-le avec : install.packages('tfdatasets')")
+  }
+
+  # Vérifier que tensorflow est disponible si redimensionnement ou RGB
+  needs_tf <- !all(image_size == c(28, 28)) || to_rgb
+  if (needs_tf && !requireNamespace("tensorflow", quietly = TRUE)) {
+    stop("Le package 'tensorflow' est requis pour le redimensionnement ou la conversion RGB. Installez-le avec : install.packages('tensorflow')")
   }
 
   set.seed(seed)
@@ -116,6 +131,14 @@ mnist_to_dataset <- function(validation_split = 0.2,
   )) |>
     tfdatasets::dataset_batch(batch_size)
 
+  # Appliquer redimensionnement et/ou conversion RGB si nécessaire
+  if (!all(image_size == c(28, 28)) || to_rgb) {
+    transform_fn <- make_transform_fn(image_size, to_rgb)
+    train_ds <- train_ds |> tfdatasets::dataset_map(transform_fn)
+    val_ds <- val_ds |> tfdatasets::dataset_map(transform_fn)
+    test_ds <- test_ds |> tfdatasets::dataset_map(transform_fn)
+  }
+
   list(
     train = train_ds,
     validation = val_ds,
@@ -123,3 +146,27 @@ mnist_to_dataset <- function(validation_split = 0.2,
   )
 }
 
+
+#' Créer une fonction de transformation pour redimensionner et convertir en RGB
+#'
+#' @param target_size Vecteur c(hauteur, largeur)
+#' @param to_rgb Booléen, convertir en RGB ?
+#'
+#' @return Fonction de transformation pour dataset_map
+#' @keywords internal
+#' @noRd
+make_transform_fn <- function(target_size, to_rgb) {
+  function(x, y) {
+    # Redimensionner si nécessaire
+    if (!all(target_size == c(28, 28))) {
+      x <- tensorflow::tf$image$resize(x, size = as.integer(target_size))
+    }
+
+    # Convertir en RGB si demandé
+    if (to_rgb) {
+      x <- tensorflow::tf$image$grayscale_to_rgb(x)
+    }
+
+    list(x, y)
+  }
+}
