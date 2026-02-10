@@ -37,6 +37,7 @@ datasets <- mnist_to_dataset(validation_split = 0.2, batch_size = 64)
 | Dataset | Description | Taille | Tâche ML |
 |-----------------|----------------------|-----------------|-----------------|
 | `adult` | Revenus et caractéristiques démographiques | 32561 × 15 | Classification binaire |
+| `ames` | Prix de l'immobilier à Ames, Iowa | 2930 × 74 | Régression |
 | `housing` | Prix de l'immobilier en Californie | 20640 × 9 | Régression |
 | `mnist` | Chiffres manuscrits 0-9 (images 28×28) | 70000 images | Classification 10 classes |
 | `sportif` | Données de performances de sportifs (exemple pédagogique) | 500 × 3 | Démonstration ML |
@@ -52,7 +53,6 @@ Chaque dataset est documenté avec sa source et ses conditions d'utilisation :
 ``` r
 ?adult
 ?mnist
-?mnist_to_dataset
 # etc.
 ```
 
