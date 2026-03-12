@@ -1,0 +1,34 @@
+#' Résultats scolaires des étudiants en mathématiques
+#'
+#' Jeu de données contenant des informations démographiques, familiales et scolaires
+#' d'étudiants portugais, ainsi que leurs notes en mathématiques.
+#' Les données proviennent d'une étude sur la prédiction de la performance scolaire
+#' à partir de caractéristiques personnelles et environnementales.
+#'
+#' @format Un data frame avec 395 lignes et 14 variables :
+#' \describe{
+#'   \item{ecole}{character. École de l'étudiant : \code{"GP"} = Gabriel Pereira, \code{"MS"} = Mousinho da Silveira.}
+#'   \item{sexe}{character. Sexe : \code{"F"} = femme, \code{"M"} = homme.}
+#'   \item{age}{integer. Âge de l'étudiant (15 à 22 ans).}
+#'   \item{education_mere}{integer. Niveau d'éducation de la mère : 0 = aucune, 1 = primaire, 2 = 5ème–9ème, 3 = secondaire, 4 = supérieur.}
+#'   \item{education_pere}{integer. Niveau d'éducation du père (mêmes modalités).}
+#'   \item{soutien_ecole}{logical. Bénéficie d’un soutien scolaire supplémentaire (TRUE/FALSE).}
+#'   \item{soutien_famille}{logical. Bénéficie d’un soutien familial pour les études (TRUE/FALSE).}
+#'   \item{cours_payants}{logical. Suit des cours supplémentaires payants (TRUE/FALSE).}
+#'   \item{temps_etude}{integer. Temps d’étude hebdomadaire : 1 = <2h, 2 = 2–5h, 3 = 5–10h, 4 = >10h.}
+#'   \item{echecs_precedents}{integer. Nombre d'échecs dans les années précédentes (0–4).}
+#'   \item{absences}{integer. Nombre d'absences scolaires (0 à 93).}
+#'   \item{note_G1}{integer. Note du premier trimestre (0 à 20).}
+#'   \item{note_G2}{integer. Note du deuxième trimestre (0 à 20).}
+#'   \item{note_finale}{integer. Note finale (0 à 20).}
+#' }
+#'
+#' @details
+#' Ce dataset permet de tester des modèles de prédiction de la réussite scolaire
+#' à partir de facteurs démographiques et familiaux.
+#'
+#' @source
+#' Dataset adapté de P. Cortez et A. Silva (2008). *Using Data Mining to Predict Secondary School Student Performance*.
+#' UCI Machine Learning Repository. \url{https://archive.ics.uci.edu/ml/datasets/Student+Performance}
+#' Licence Creative Commons Attribution 4.0 International (CC BY 4.0).
+"students"

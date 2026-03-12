@@ -1,0 +1,70 @@
+#' Données de diagnostic de maladie cardiaque
+#'
+#' Jeu de données clinique contenant des informations démographiques,
+#' biologiques et issues d'examens cardiovasculaires permettant d'étudier
+#' la présence d'une maladie cardiaque.
+#'
+#' Cette version correspond au sous-ensemble classique de 14 variables
+#' utilisé dans de nombreux exemples de classification en apprentissage
+#' automatique.
+#'
+#' @format Un data frame avec 303 lignes et 14 variables :
+#' \describe{
+#'   \item{age}{double. Âge du patient (années).}
+#'
+#'   \item{sexe}{character. Sexe biologique :
+#'   \code{"male"} (homme),
+#'   \code{"fem"} (femme).}
+#'
+#'   \item{type_douleur_poitrine}{character. Type de douleur thoracique :
+#'   \code{"angina"} (angine typique),
+#'   \code{"abnang"} (angine atypique),
+#'   \code{"notang"} (douleur non angineuse),
+#'   \code{"asympt"} (asymptomatique).}
+#'
+#'   \item{pression_arterielle_repos}{double. Pression artérielle au repos
+#'   (mm Hg).}
+#'
+#'   \item{cholesterol}{double. Cholestérol sérique (mg/dl).}
+#'
+#'   \item{glycemie_jeun_sup_120}{logical. Glycémie à jeun supérieure à
+#'   120 mg/dl (\code{TRUE} / \code{FALSE}).}
+#'
+#'   \item{ecg_repos}{character. Résultat de l'électrocardiogramme au repos :
+#'   \code{"norm"} (normal),
+#'   \code{"hyp"} (hypertrophie ventriculaire gauche probable),
+#'   \code{"abn"} (anomalie ST-T).}
+#'
+#'   \item{frequence_cardiaque_max}{double. Fréquence cardiaque maximale
+#'   atteinte lors du test d'effort.}
+#'
+#'   \item{angine_induite_exercice}{logical. Présence d'une angine induite par
+#'   l'exercice (\code{TRUE} / \code{FALSE}).}
+#'
+#'   \item{depression_st}{double. Dépression du segment ST induite par
+#'   l'exercice par rapport au repos (mesure ECG).}
+#'
+#'   \item{pente_st}{character. Pente du segment ST pendant l'effort :
+#'   \code{"up"} (montante),
+#'   \code{"flat"} (plate),
+#'   \code{"down"} (descendante).}
+#'
+#'   \item{nb_vaisseaux_colores}{double. Nombre de vaisseaux coronaires majeurs
+#'   colorés par fluoroscopie (valeurs possibles : 0 à 3).}
+#'
+#'   \item{thalassemie}{character. Résultat du test thallium :
+#'   \code{"norm"} (normal),
+#'   \code{"fix"} (défaut fixe),
+#'   \code{"rev"} (défaut réversible).}
+#'
+#'   \item{maladie_cardiaque}{factor. Présence d'une maladie cardiaque :
+#'   \code{0} (absence),
+#'   \code{1} (présence).}
+#' }
+#'
+#' @source
+#' Heart Disease dataset,
+#' (\href{https://doi.org/10.24432/C52P4X}{DOI: 10.24432/C52P4X})
+#' \url{https://archive.ics.uci.edu/dataset/45/heart+disease}
+#' Licence Creative Commons Attribution 4.0 International (CC BY 4.0).
+"heart"
