@@ -36,8 +36,10 @@ datasets <- mnist_to_dataset(validation_split = 0.2, batch_size = 64)
 
 | Dataset | Description | Taille | Tâche ML |
 |-----------------|----------------------|-----------------|-----------------|
+| `abalone` | Mesures physiques d'ormeaux pour prédire leur âge | 4177 × 9 | Régression ou classification |
 | `adult` | Revenus et caractéristiques démographiques | 32561 × 15 | Classification binaire |
 | `ames` | Prix de l'immobilier à Ames, Iowa | 2930 × 74 | Régression |
+| `cmc` | Choix de méthode contraceptive (enquête Indonésie 1987) | 1473 × 10 | Classification multi-classe |
 | `energy` | Charges thermiques des bâtiments | 768 × 10 | Régression |
 | `fires` | Feux de forêt dans le parc de Montesinho | 517 × 13 | Régression |
 | `heart` | Diagnostic de maladie cardiaque | 303 × 14 | Classification binaire |
@@ -46,7 +48,7 @@ datasets <- mnist_to_dataset(validation_split = 0.2, batch_size = 64)
 | `sportif` | Données de performances de sportifs (exemple pédagogique) | 500 × 3 | Démonstration ML |
 | `students` | Résultats scolaires des étudiants en mathématiques | 395 × 14 | Régression ou classification |
 | `titanic` | Survie des passagers du Titanic | 891 × 12 | Classification binaire |
-| `wine` | Qualité des vins | 6497 × 12 | Régression/Classification |
+| `wine` | Qualité des vins | 6497 × 12 | Régression ou classification |
 
 **Fonction utilitaire :** `mnist_to_dataset()` prépare MNIST pour Keras (normalisation, split train/val, batching).
 
