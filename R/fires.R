@@ -5,27 +5,27 @@
 #' parc naturel de Montesinho (Portugal). Les données permettent d'étudier
 #' l'impact des conditions météo et de sécheresse sur la surface brûlée.
 #'
-#' @format Un data frame avec 517 lignes et 13 variables :
+#' @format Un tibble avec 517 lignes et 13 variables :
 #' \describe{
-#'   \item{coord_x}{integer. Coordonnée spatiale sur l'axe X dans la grille
+#'   \item{x}{double. Coordonnée spatiale sur l'axe X dans la grille
 #'   du parc (1 = gauche, 9 = droite).}
-#'   \item{coord_y}{integer. Coordonnée spatiale sur l'axe Y dans la grille
+#'   \item{y}{double. Coordonnée spatiale sur l'axe Y dans la grille
 #'   du parc (2 = bas, 9 = haut).}
 #'   \item{mois}{character. Mois de l'année (\code{"jan"} = janvier,
 #'   \code{"feb"} = février, … \code{"dec"} = décembre).}
-#'   \item{jour_semaine}{character. Jour de la semaine
+#'   \item{jour}{character. Jour de la semaine
 #'   (\code{"mon"} = lundi, …, \code{"sun"} = dimanche).}
-#'   \item{indice_ffmc}{double. Fine Fuel Moisture Code (indice d'humidité des
+#'   \item{ffmc}{double. Fine Fuel Moisture Code (indice d'humidité des
 #'   combustibles fins).}
-#'   \item{indice_dmc}{double. Duff Moisture Code (indice d'humidité de la
+#'   \item{dmc}{double. Duff Moisture Code (indice d'humidité de la
 #'   litière organique).}
-#'   \item{indice_dc}{double. Drought Code (indice de sécheresse profonde).}
-#'   \item{indice_isi}{double. Initial Spread Index (indice de propagation
+#'   \item{dc}{double. Drought Code (indice de sécheresse profonde).}
+#'   \item{isi}{double. Initial Spread Index (indice de propagation
 #'   initiale du feu).}
 #'   \item{temperature}{double. Température de l'air en degrés Celsius.}
-#'   \item{humidite_relative}{double. Humidité relative de l'air en pourcentage.}
-#'   \item{vitesse_vent}{double. Vitesse du vent en km/h.}
-#'   \item{precipitations}{double. Pluie extérieure en mm/m².}
+#'   \item{humidite}{double. Humidité relative de l'air en pourcentage.}
+#'   \item{vent}{double. Vitesse du vent en km/h.}
+#'   \item{pluie}{double. Pluie extérieure en mm/m².}
 #'   \item{surface_brulee}{double. Surface de forêt brûlée en hectares.}
 #' }
 #'

@@ -3,7 +3,7 @@
 \docType{data}
 \name{wine}
 \alias{wine}
-\title{Données de qualité du vin}
+\title{Données de qualité du vin rouge}
 \format{
 Un tibble avec 1143 lignes et 12 variables :
 \describe{
@@ -15,7 +15,7 @@ Un tibble avec 1143 lignes et 12 variables :
 \item{free_sulfur_dioxide}{dbl Dioxyde de soufre libre}
 \item{total_sulfur_dioxide}{dbl Dioxyde de soufre total}
 \item{density}{dbl Densité}
-\item{pH}{dbl Niveau de pH}
+\item{p_h}{dbl Niveau de pH}
 \item{sulphates}{dbl Sulfates}
 \item{alcohol}{dbl Teneur en alcool}
 \item{quality}{int Score de qualité sensorielle compris entre 0 et 10}
@@ -34,7 +34,7 @@ Licence Creative Commons Attribution 4.0 International (CC BY 4.0).
 wine
 }
 \description{
-Ce jeu de données contient des mesures physico-chimiques de vins ainsi qu’un
+Ce jeu de données contient des mesures physico-chimiques de vins rouges portugais (vinho verde) ainsi qu’un
 score de qualité sensorielle. Il est couramment utilisé pour des analyses de
 régression et de classification visant à relier les propriétés chimiques du
 vin à la qualité perçue.
