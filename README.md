@@ -45,7 +45,7 @@ y_test <- extract_dataset(datasets$test, what = "y", labels_format = "integer")
 | `ames` | Prix de l'immobilier à Ames, Iowa | 2 930 × 74 | Régression |
 | `bike_sharing` | Locations quotidiennes de vélos (Capital Bikeshare, Washington D.C., 2011-2012) | 731 × 14 | Régression |
 | `cmc` | Choix de méthode contraceptive (enquête Indonésie 1987) | 1 473 × 10 | Classification multi-classe |
-| `credit` | Défauts de paiement de cartes de crédit (banque taïwanaise, 2005) | 30 000 × 24 | Classification binaire (classes déséquilibrées) |
+| `credit` | Défauts de paiement de cartes de crédit (banque taïwanaise, 2005) | 30 000 × 9 | Classification binaire (classes déséquilibrées) |
 | `energy` | Charges thermiques des bâtiments | 768 × 10 | Régression |
 | `fires` | Feux de forêt dans le parc de Montesinho | 517 × 13 | Régression |
 | `heart` | Diagnostic de maladie cardiaque | 303 × 14 | Classification binaire |

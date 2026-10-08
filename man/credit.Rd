@@ -5,7 +5,7 @@
 \alias{credit}
 \title{Données de défaut de paiement de cartes de crédit (default of credit card clients)}
 \format{
-Un tibble avec 30 000 lignes et 24 variables :
+Un tibble avec 30 000 lignes et 9 variables :
 \describe{
 \item{limit_bal}{dbl. Montant du crédit accordé (NT$), incluant le crédit
 individuel du client et le crédit complémentaire de son foyer.}
@@ -23,24 +23,17 @@ modalité « autre » de la source d'origine et le code non documenté (0).}
 
 \item{age}{dbl. Âge du client (années).}
 
-\item{pay_1, pay_2, pay_3, pay_4, pay_5, pay_6}{dbl. Statut de
-remboursement de septembre 2005 (\code{pay_1}) à avril 2005
-(\code{pay_6}) : \code{-1} = remboursé dans les temps, \code{1} à
-\code{9} = nombre de mois de retard (\code{9} = 9 mois ou plus). Les
-valeurs \code{-2} et \code{0}, présentes dans les données mais non
-documentées par la source, sont généralement interprétées comme
-« aucune consommation » et « paiement minimum effectué (crédit
-renouvelable) ». La variable \code{pay_1} s'appelle \code{PAY_0} dans
-le fichier d'origine.}
+\item{months_late}{dbl. Retard de remboursement en septembre 2005, en
+nombre de mois (\code{0} si le client est à jour). Dérivé du statut de
+remboursement d'origine : les codes \code{-2}, \code{-1} et \code{0}
+(aucune consommation, remboursé dans les temps, paiement minimum
+effectué) sont ramenés à \code{0}. Dans la source, la valeur \code{9}
+correspond à 9 mois ou plus.}
 
-\item{bill_amt1, bill_amt2, bill_amt3, bill_amt4, bill_amt5, bill_amt6}{dbl.
-Montant du relevé de facturation (NT$) de septembre 2005
-(\code{bill_amt1}) à avril 2005 (\code{bill_amt6}). Peut être négatif
-(trop-perçu en faveur du client).}
+\item{bill_amt}{dbl. Montant du relevé de facturation de septembre 2005
+(NT$). Peut être négatif (trop-perçu en faveur du client).}
 
-\item{pay_amt1, pay_amt2, pay_amt3, pay_amt4, pay_amt5, pay_amt6}{dbl.
-Montant remboursé (NT$) en septembre 2005 (\code{pay_amt1}) à avril
-2005 (\code{pay_amt6}).}
+\item{paid_amt}{dbl. Montant remboursé en septembre 2005 (NT$).}
 
 \item{default}{factor. Défaut de paiement le mois suivant (variable
 cible) : \code{"no"}, \code{"yes"}.}
@@ -52,24 +45,27 @@ Machine Learning Repository.
 (\href{https://doi.org/10.24432/C55S3H}{DOI: 10.24432/C55S3H})
 \url{https://archive.ics.uci.edu/dataset/350/default+of+credit+card+clients}.
 Licence Creative Commons Attribution 4.0 International (CC BY 4.0).
+Données modifiées : colonnes d'historique réduites au dernier mois,
+\code{months_late} dérivé du statut de remboursement.
 }
 \usage{
 credit
 }
 \description{
 Informations sur 30 000 clients d'une banque taïwanaise titulaires d'une
-carte de crédit, observés d'avril à septembre 2005 : montant du crédit
-accordé, caractéristiques démographiques, historique des retards de
-paiement, montants facturés et montants remboursés sur six mois.
+carte de crédit, observés en septembre 2005 : montant du crédit accordé,
+caractéristiques démographiques, retard de remboursement, montant facturé
+et montant remboursé sur le mois.
 L'objectif est de prédire si le client fera défaut de paiement le mois
 suivant, ce qui en fait un exemple classique de classification binaire
 avec des classes déséquilibrées (environ 22 \% de défauts).
 }
 \details{
-Tous les montants sont exprimés en nouveaux dollars taïwanais (NT$). Les
-variables suffixées de \code{1} à \code{6} remontent dans le temps :
-\code{1} correspond à septembre 2005, \code{2} à août 2005, ..., \code{6}
-à avril 2005.
+Ce jeu de données est adapté de la version UCI, qui contient l'historique
+des six mois d'avril à septembre 2005 : seul le mois le plus récent
+(septembre 2005) est conservé, et la variable \code{months_late} est
+dérivée du statut de remboursement d'origine (\code{PAY_0}). Tous les
+montants sont exprimés en nouveaux dollars taïwanais (NT$).
 }
 \references{
 Yeh, I.-C., & Lien, C.-H. (2009). The comparisons of data mining techniques

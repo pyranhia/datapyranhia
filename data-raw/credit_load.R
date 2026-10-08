@@ -42,5 +42,17 @@ credit <- credit |>
     default = factor(default, levels = c(0, 1), labels = c("no", "yes"))
   )
 
+## Keep only the most recent month (September 2005)
+# months_late: -2, -1 and 0 (no delay) are mapped to 0, giving a numeric,
+# monotonic variable that reads directly as "number of months late"
+credit <- credit |>
+  transmute(
+    limit_bal, sex, education, marriage, age,
+    months_late = pmax(pay_1, 0),
+    bill_amt    = bill_amt1,
+    paid_amt    = pay_amt1,
+    default
+  )
+
 ## Use data
 usethis::use_data(credit, overwrite = TRUE)
