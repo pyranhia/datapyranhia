@@ -1,5 +1,5 @@
 Package: datapyranhia
-Title: Jeu de données pour les formations Pyranhia
+Title: Jeux de données pour les formations Pyranhia
 Version: 0.0.0.9000
 Authors@R: person("Thelma", "Panaïotis", email = "thelmapana@proton.me", role = c("aut", "cre"))
 Description: Ce package fournit des jeux de données utilisés dans les formations Pyranhia, facilitant l'apprentissage et la manipulation de données en R.

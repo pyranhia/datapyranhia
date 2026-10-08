@@ -4,7 +4,7 @@
 \name{datapyranhia-package}
 \alias{datapyranhia}
 \alias{datapyranhia-package}
-\title{datapyranhia: Jeu de données pour les formations Pyranhia}
+\title{datapyranhia: Jeux de données pour les formations Pyranhia}
 \description{
 Ce package fournit des jeux de données utilisés dans les formations Pyranhia, facilitant l'apprentissage et la manipulation de données en R.
 }
