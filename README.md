@@ -7,7 +7,7 @@ Datasets pour les formations [Pyranhia](https://www.pyranhia.eu).
 ## Installation
 
 ``` r
-# Méthode recommandée (plus rapide)
+# Méthode recommandée
 # install.packages("pak")
 pak::pak("pyranhia/datapyranhia")
 

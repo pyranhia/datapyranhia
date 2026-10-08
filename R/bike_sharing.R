@@ -1,0 +1,74 @@
+#' Données de location de vélos en libre-service (bike sharing)
+#'
+#' Nombre quotidien de locations de vélos du système Capital Bikeshare
+#' (Washington D.C., États-Unis) sur les années 2011 et 2012, accompagné
+#' d'informations calendaires et météorologiques. La demande de vélos en
+#' libre-service dépend fortement de la saison, du jour de la semaine et de la
+#' météo, ce qui fait de ce jeu de données un exemple classique de régression
+#' (prédiction du nombre de locations) avec une composante temporelle.
+#'
+#' Les variables \code{temperature}, \code{humidity} et \code{windspeed} sont
+#' normalisées par la source d'origine (divisées par leur valeur maximale
+#' possible). Les variables catégorielles sont codées sous forme numérique.
+#' Les jours fériés suivent le calendrier officiel de Washington D.C.
+#'
+#' @format Un tibble avec 731 lignes (une par jour, du 1er janvier 2011 au 31
+#'   décembre 2012) et 14 variables :
+#' \describe{
+#'   \item{date}{Date. Jour de l'observation.}
+#'
+#'   \item{season}{dbl. Saison : \code{1} = hiver, \code{2} = printemps,
+#'   \code{3} = été, \code{4} = automne (saisons astronomiques, changeant
+#'   autour du 21 des mois de mars, juin, septembre et décembre).}
+#'
+#'   \item{year}{dbl. Année : \code{0} = 2011, \code{1} = 2012.}
+#'
+#'   \item{month}{dbl. Mois, de \code{1} (janvier) à \code{12} (décembre).}
+#'
+#'   \item{holiday}{dbl. Jour férié : \code{1} = oui, \code{0} = non.}
+#'
+#'   \item{weekday}{dbl. Jour de la semaine, de \code{0} (dimanche) à
+#'   \code{6} (samedi).}
+#'
+#'   \item{workingday}{dbl. Jour ouvré (ni week-end, ni jour férié) :
+#'   \code{1} = oui, \code{0} = non.}
+#'
+#'   \item{weather}{dbl. Conditions météorologiques de la journée :
+#'   \code{1} = dégagé à partiellement nuageux,
+#'   \code{2} = brume et/ou nuageux,
+#'   \code{3} = neige légère ou pluie légère (éventuellement avec orage),
+#'   \code{4} = fortes pluies, grêle, orage ou neige avec brouillard (cette
+#'   modalité n'est jamais observée dans les données journalières).}
+#'
+#'   \item{temperature}{dbl. Température normalisée (température en °C
+#'   divisée par 41). Multiplier par 41 pour retrouver des °C.}
+#'
+#'   \item{humidity}{dbl. Humidité relative normalisée (humidité en \%
+#'   divisée par 100). Une journée (10 mars 2011) présente une humidité
+#'   de 0, vraisemblablement une erreur de mesure.}
+#'
+#'   \item{windspeed}{dbl. Vitesse du vent normalisée (vitesse divisée
+#'   par 67).}
+#'
+#'   \item{users_casual}{dbl. Nombre de locations par des utilisateurs
+#'   occasionnels (non abonnés).}
+#'
+#'   \item{users_registered}{dbl. Nombre de locations par des utilisateurs
+#'   abonnés.}
+#'
+#'   \item{rental_number}{dbl. Nombre total de locations
+#'   (\code{users_casual} + \code{users_registered}).}
+#' }
+#'
+#' @source
+#' Fanaee-T, H. (2013). *Bike Sharing* \[Dataset\]. UCI Machine Learning
+#' Repository. (\href{https://doi.org/10.24432/C5W894}{DOI: 10.24432/C5W894})
+#' \url{https://archive.ics.uci.edu/dataset/275/bike+sharing+dataset}.
+#' Licence Creative Commons Attribution 4.0 International (CC BY 4.0).
+#'
+#' @references
+#' Fanaee-T, H., & Gama, J. (2014). Event labeling combining ensemble
+#' detectors and background knowledge. *Progress in Artificial Intelligence*,
+#' 2(2), 113-127.
+#' (\href{https://doi.org/10.1007/s13748-013-0040-3}{DOI: 10.1007/s13748-013-0040-3})
+"bike_sharing"

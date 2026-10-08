@@ -11,5 +11,10 @@ Ce package fournit des jeux de données utilisés dans les formations Pyranhia, 
 \author{
 \strong{Maintainer}: Thelma Panaïotis \email{thelmapana@proton.me}
 
+Authors:
+\itemize{
+  \item Thelma Panaïotis \email{thelmapana@proton.me}
+}
+
 }
 \keyword{internal}

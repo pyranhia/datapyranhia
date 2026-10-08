@@ -2,6 +2,8 @@
 
 export(extract_dataset)
 export(mnist_to_dataset)
-importFrom(reticulate,as_iterator)
-importFrom(reticulate,iter_next)
+importFrom(reticulate,
+  as_iterator,
+  iter_next
+)
 importFrom(tibble,tibble)
