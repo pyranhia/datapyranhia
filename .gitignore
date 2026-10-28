@@ -3,3 +3,6 @@
 .RData
 .Ruserdata
 .DS_Store
+
+# Source du dataset bassins
+data-raw/CAMELS_FR_attributes/

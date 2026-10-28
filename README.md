@@ -43,6 +43,7 @@ y_test <- extract_dataset(datasets$test, what = "y", labels_format = "integer")
 | `abalone` | Mesures physiques d'ormeaux pour prédire leur âge | 4 177 × 9 | Régression ou classification |
 | `adult` | Revenus et caractéristiques démographiques | 48 842 × 13 | Classification binaire |
 | `ames` | Prix de l'immobilier à Ames, Iowa | 2 930 × 74 | Régression |
+| `bassins` | Indice de débit de base de bassins versants français | 612 × 19 | Régression ou classification |
 | `bike_sharing` | Locations quotidiennes de vélos (Capital Bikeshare, Washington D.C., 2011-2012) | 731 × 14 | Régression |
 | `cmc` | Choix de méthode contraceptive (enquête Indonésie 1987) | 1 473 × 10 | Classification multi-classe |
 | `credit` | Défauts de paiement de cartes de crédit (banque taïwanaise, 2005) | 30 000 × 9 | Classification binaire (classes déséquilibrées) |
